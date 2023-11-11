@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, authenticate, login
+from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.http import HttpResponse
 
 User = get_user_model()
@@ -43,3 +43,8 @@ def auth_view(request):
                 login(request, user)
                 return redirect("main")
     return render(request, "web/auth.html", {"form": form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("main")
