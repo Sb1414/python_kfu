@@ -26,6 +26,13 @@ class AuthForm(forms.Form):
 
 
 class TimeSlotForm(forms.ModelForm):
+    start_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={"type": "datetime-local"}))
+    end_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={"type": "datetime-local"}))
+
+    def save(self, commit=True):
+        self.instance.user = self.initial['user']
+        return super().save(commit)
+
     class Meta:
         model = TimeSlot
         fields = ('title', 'start_date', 'end_date')

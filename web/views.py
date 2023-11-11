@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.http import HttpResponse
 
+from web.models import TimeSlot
+
 User = get_user_model()
 
 from web.forms import RegistrationForm, AuthForm, TimeSlotForm
 
 
 def main_view(request):
-    return render(request, "web/main.html")
+    timeslots = TimeSlot.objects.all()
+    return render(request, "web/main.html", {
+        'timeslots': timeslots
+    })
 
 
 def registration_view(request):
@@ -52,4 +57,9 @@ def logout_view(request):
 
 def time_slot_add_view(request):
     form = TimeSlotForm()
+    if request.method == 'POST':
+        form = TimeSlotForm(data=request.POST, initial={"user": request.user})
+        if form.is_valid():
+            form.save()
+            return redirect("main")
     return render(request, "web/time_slot_form.html", {"form": form})
