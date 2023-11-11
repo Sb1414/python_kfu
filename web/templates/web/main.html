@@ -6,5 +6,16 @@
         <p>Вы авторизованы как <b>{{ user.username }}</b></p>
     {% endif %}
 
-    <a href="{% url 'time_slots_add' %}">Создать тайм-слот</a>
+    <a href="{% url 'time_slot_add' %}">Создать тайм-слот</a>
+
+    <ui>
+        {% for timeslot in timeslots %}
+        <li>
+            <b>{{ timeslot.title }}</b>
+            {{ timeslot.start_date }} - {{ timeslot.end_date }}
+            {% if timeslot.is_realtime %} <small>(realtime)</small> {% endif %}
+        </li>
+        {% endfor %}
+    </ui>
+
 {% endblock %}
