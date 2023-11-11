@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.http import HttpResponse
 
 User = get_user_model()
 
-from web.forms import RegistrationForm
+from web.forms import RegistrationForm, AuthForm
 
 
 def main_view(request):
@@ -29,3 +29,14 @@ def registration_view(request):
     return render(request, "web/registration.html", {
         "form": form, "is_success": is_success}
     )
+
+
+def auth_view(request):
+    form = AuthForm()
+    if request.method == 'POST':
+        form = AuthForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(**form.cleaned_data)
+            if user is None:
+                form.add_error(None, "Введены неверные данные")
+    return render(request, "web/auth.html", {"form": form})
