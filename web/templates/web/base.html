@@ -9,10 +9,18 @@
     <nav>
       <a href="{% url 'main' %}">Главная</a>
         {% if user.is_anonymous %}
-            <a href="{% url 'registration' %}">Регистрация</a>
-            <a href="{% url 'auth' %}">Авторизация</a>
+            <div style="text-align: right">
+                <a href="{% url 'registration' %}">Регистрация</a>
+                <a href="{% url 'auth' %}">Авторизация</a>
+            </div>
         {% else %}
-            <a href="{% url 'logout' %}">Выйти</a>
+            <a href="{% url 'time_slot_add' %}">Создать тайм-слот</a>
+            <div style="text-align: right">
+                {% if not user.is_anonymous %}
+                    Вы авторизованы как <b>{{ user.username }}</b>
+                {% endif %}
+                <a href="{% url 'logout' %}">Выйти</a>
+            </div>
         {% endif %}
     </nav>
     <hr>
