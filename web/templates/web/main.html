@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <p>йоу</p>
-</body>
-</html>
+{% extends 'web/base.html' %}
+{% block content %}
+    <h1>йоу</h1>
+
+    {% if not user.is_anonymous %}
+        <p>Вы авторизованы как <b>{{ user.username }}</b></p>
+    {% endif %}
+{% endblock %}

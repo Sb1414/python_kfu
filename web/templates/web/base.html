@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Tracker</title>
+</head>
+<body>
+    <h1><a href="{% url 'main' %}">Time Tracker</a></h1>
+    <nav>
+      <a href="{% url 'main' %}">Главная</a>
+        {% if user.is_anonymous %}
+            <a href="{% url 'registration' %}">Регистрация</a>
+            <a href="{% url 'auth' %}">Авторизация</a>
+        {% endif %}
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>
