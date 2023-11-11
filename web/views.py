@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 User = get_user_model()
 
-from web.forms import RegistrationForm, AuthForm
+from web.forms import RegistrationForm, AuthForm, TimeSlotForm
 
 
 def main_view(request):
@@ -48,3 +48,8 @@ def auth_view(request):
 def logout_view(request):
     logout(request)
     return redirect("main")
+
+
+def time_slot_add_view(request):
+    form = TimeSlotForm()
+    return render(request, "web/time_slot_form.html", {"form": form})
