@@ -1,13 +1,18 @@
 from django import forms
+from django.contrib.auth import get_user_model
 
-class RegistrationForm(forms.Form):
-    email = forms.EmailField()
-    username = forms.CharField()
-    password = forms.EmailField(widget=forms.PasswordInput)
-    password2 = forms.EmailField(widget=forms.PasswordInput)
+User = get_user_model()
+
+
+class RegistrationForm(forms.ModelForm):
+    password2 = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self):
-        cleane_data = super().clean()
-        if cleane_data['password'] != cleane_data['password2']:
+        cleaned_data = super().clean()
+        if cleaned_data['password'] != cleaned_data['password2']:
             self.add_error("password", "Пароли не совпадают")
-        return cleane_data
+        return cleaned_data
+
+    class Meta:
+        model = User
+        fields = ("email", "username", "password", "password2")
