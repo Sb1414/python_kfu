@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.contrib.auth import get_user_model, authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model, authenticate, login
 from django.http import HttpResponse
 
 User = get_user_model()
@@ -39,4 +39,7 @@ def auth_view(request):
             user = authenticate(**form.cleaned_data)
             if user is None:
                 form.add_error(None, "Введены неверные данные")
+            else:
+                login(request, user)
+                return redirect("main")
     return render(request, "web/auth.html", {"form": form})
