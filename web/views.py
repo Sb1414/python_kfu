@@ -3,10 +3,9 @@ from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.http import HttpResponse
 
 from web.models import TimeSlot
+from web.forms import RegistrationForm, AuthForm, TimeSlotForm
 
 User = get_user_model()
-
-from web.forms import RegistrationForm, AuthForm, TimeSlotForm
 
 
 def main_view(request):
@@ -59,7 +58,7 @@ def time_slot_edit_view(request, id=None):
     timeslot = TimeSlot.objects.get(id=id) if id is not None else None
     form = TimeSlotForm(instance=timeslot)
     if request.method == 'POST':
-        form = TimeSlotForm(data=request.POST, instance=timeslot, initial={"user": request.user})
+        form = TimeSlotForm(data=request.POST, files=request.FILES, instance=timeslot, initial={"user": request.user})
         if form.is_valid():
             form.save()
             return redirect("main")

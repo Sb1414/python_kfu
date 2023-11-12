@@ -1,7 +1,7 @@
 {% extends 'web/base.html' %}
 {% block content %}
     <h2>Создание тайм слота</h2>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button>Сохранить</button>
