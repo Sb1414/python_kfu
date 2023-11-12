@@ -27,6 +27,8 @@ class AuthForm(forms.Form):
 
 class TimeSlotForm(forms.ModelForm):
     def save(self, commit=True):
+        if not self.cleaned_data['end_date']:
+            self.instance.is_realtime = True
         self.instance.user = self.initial['user']
         return super().save(commit)
 
