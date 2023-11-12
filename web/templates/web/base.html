@@ -15,6 +15,7 @@
             </div>
         {% else %}
             <a href="{% url 'time_slot_add' %}">Создать тайм-слот</a>
+            <a href="{% url 'tags' %}">Теги</a>
             <div style="text-align: right">
                 {% if not user.is_anonymous %}
                     Вы авторизованы как <b>{{ user.username }}</b>

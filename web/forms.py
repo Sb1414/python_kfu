@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from web.models import TimeSlot
+from web.models import TimeSlot, TimeSlotTag
 
 User = get_user_model()
 
@@ -32,7 +32,7 @@ class TimeSlotForm(forms.ModelForm):
 
     class Meta:
         model = TimeSlot
-        fields = ('title', 'start_date', 'end_date', 'image')
+        fields = ('title', 'start_date', 'end_date', 'image', 'tags')
         widgets = {
             "start_date": forms.DateTimeInput(
                 attrs={"type": "datetime-local"}, format='%Y-%m-%dT%H:%M'
@@ -41,3 +41,14 @@ class TimeSlotForm(forms.ModelForm):
                 attrs={"type": "datetime-local"}, format='%Y-%m-%dT%H:%M'
             )
         }
+
+
+class TimeSlotTagForm(forms.ModelForm):
+    def save(self, commit=True):
+        self.instance.user = self.initial['user']
+        return super().save(commit)
+
+    class Meta:
+        model = TimeSlotTag
+        fields = ('title', )
+
