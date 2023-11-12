@@ -131,3 +131,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = "media/"
 MEDIA_URL = "media/"
+
+LOGIN_URL = 'auth'
+LOGIN_REDIRECT_URL = 'main'
