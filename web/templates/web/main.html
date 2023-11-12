@@ -1,12 +1,22 @@
 {% extends 'web/base.html' %}
 {% block content %}
+    <b>Добавить тайм-слот</b>
+    <form action="{% url 'time_slot_add' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Сохранить</button>
+    </form>
+
     <ui>
         {% for timeslot in timeslots %}
         <li>
             <b>{{ timeslot.title }}</b>
-            {{ timeslot.start_date }} - {{ timeslot.end_date }}
             {% if timeslot.is_realtime %} <small>(realtime)</small> {% endif %}
-            <a href="{% url 'time_slot_edit' timeslot.id %}">изменить</a>
+            <br>
+            <small>
+                {{ timeslot.start_date }} - {{ timeslot.end_date }}
+                <a href="{% url 'time_slot_edit' timeslot.id %}">изменить</a>
+            </small>
         </li>
         {% endfor %}
     </ui>

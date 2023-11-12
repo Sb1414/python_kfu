@@ -9,9 +9,10 @@ User = get_user_model()
 
 
 def main_view(request):
-    timeslots = TimeSlot.objects.all()
+    timeslots = TimeSlot.objects.all().order_by('-start_date')
     return render(request, "web/main.html", {
-        'timeslots': timeslots
+        'timeslots': timeslots,
+        "form": TimeSlotForm()
     })
 
 
