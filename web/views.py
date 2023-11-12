@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.http import HttpResponse
 
-from web.models import TimeSlot, TimeSlotTag
-from web.forms import RegistrationForm, AuthForm, TimeSlotForm, TimeSlotTagForm
+from web.models import TimeSlot, TimeSlotTag, Holiday
+from web.forms import RegistrationForm, AuthForm, TimeSlotForm, TimeSlotTagForm, HolidayForm
 
 User = get_user_model()
 
@@ -84,3 +84,13 @@ def tags_delete_view(request, id):
     tag = TimeSlotTag.objects.get(id=id)
     tag.delete()
     return redirect('tags')
+
+
+def holidays_view(request):
+    return _list_editor_view(request, Holiday, HolidayForm, "holidays", 'holidays')
+
+
+def holidays_delete_view(request, id):
+    holiday = Holiday.objects.get(id=id)
+    holiday.delete()
+    return redirect('holiday')

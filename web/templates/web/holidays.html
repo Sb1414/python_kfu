@@ -1,0 +1,19 @@
+{% extends 'web/base.html' %}
+{% block content %}
+    <h2>Выходные</h2>
+    <ui>
+      {% for tag in items %}
+        <li>
+            {{ tag.date }}
+            <small><a href="{% url 'tags_delete' tag.id %}">удалить</a></small>
+        </li>
+      {% endfor %}
+    </ui>
+
+    <b>Добавление выходного</b>
+    <form action="", method="post">
+        {% csrf_token %}
+        {{  form.as_p }}
+        <button>Сохранить выходной</button>
+    </form>
+{% endblock %}
